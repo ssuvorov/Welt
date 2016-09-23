@@ -1,49 +1,40 @@
 import page from 'page'
 
-import User from './modules/users'
+import Controller from './controller';
+import Users from './view/users' 
+import News from './view/news'
 
-let AppController;
 
 class Router {
-  constructor(obj) {
+  constructor(options = {}) {
+    this.controller = new Controller()
+    this.options = options
+  }
+
+  prepare() {
     const self = this
 
     page.base('/')
 
     // define routes
-    for (let key in obj) {
-      const controller = obj[key]
+    for (let route in this.options) {
+      const view = this.options[route]
 
-      if ('string' == typeof controller) {
-        ((route, fn) => {
-          page(key, () => {
-            fn.apply(self, arguments);
-          })
-        })(key, obj[controller])
-      }
+      page(route, (options) => {
+        self.controller.setView(view, options)
+      })
     }
 
   }
 
-  start() {
-    return page()
-  }
-
-  setView(View) {
-    if (!View) return
-    debugger
-    AppController = new View()
+  init() {
+    this.prepare()
+    page()
   }
 }
 
 export default new Router({
-  '/': 'index',
-  '/about': 'about',
-  '/contact': 'contact',
-  index: function(){
-    debugger
-    this.setView(User) },
-  about: function(){ this.setView() },
-  contact: function(){ this.setView() }
+  '/': Users,
+  'news/userid/:userid': News
 })
 

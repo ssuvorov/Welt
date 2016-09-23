@@ -1,10 +1,14 @@
-class Endpoint {
+const API_ROOT = 'http://jsonplaceholder.typicode.com/'
 
+class Endpoint {
+  constructor() {
+    this.API_ROOT = API_ROOT
+  }
 }
 
 Endpoint.prototype.queryToString = function (query) {
-  var param;
-  var queryStringBuilder = [];
+  let param;
+  let queryStringBuilder = [];
 
   if (!query) return '';
 

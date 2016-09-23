@@ -1,7 +1,13 @@
-const template = '
-    <article class="users">
-        <h1>Users</h1>
-    </article>
-'
-
-export default template
+<article class="users">
+    <h1>Users</h1>
+    <ul class="users__list">
+        {{#users}}
+            <li class="users__item">
+                <a id="{{id}}" class="users__item__link" href="/news/userid/{{id}}">
+                    <span class="users__item__id">id: {{id}}</span>
+                    {{username}} &mdash; {{name}}
+                </a>
+            </li>
+        {{/users}}
+    </ul>
+</article>

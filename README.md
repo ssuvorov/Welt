@@ -1,4 +1,4 @@
-Show News on React
+Show News on Vanilla JS
 ===================================
 
 ### Usage
@@ -14,8 +14,9 @@ Your changes will appear without reloading the browser like in [this video](http
 
 ### Dependencies
 
-* React
 * Webpack
+* Handlebars
+* Page.js router
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 * [babel-loader](https://github.com/babel/babel-loader)
 * [react-hot-loader](https://github.com/gaearon/react-hot-loader)

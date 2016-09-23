@@ -1,0 +1,18 @@
+<article class="news">
+    <div class="controls">
+        <a href="/" class="button button--back">Back to list</a>
+    </div>
+    <div>
+        {{#user}}
+            {{{username}}} &mdash; {{{name}}}
+        {{/user}}
+    </div>
+    <ul class="news__list">
+        {{#news}}
+            <li class="news__item">
+                <h3>{{{title}}}</h3>
+                <p>{{{body}}}</p>
+            </li>
+        {{/news}}
+    </ul>
+</article>

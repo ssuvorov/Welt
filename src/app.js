@@ -1,4 +1,4 @@
-import router from './router'
+import Controller from './controller'
 
 class App {
   constructor() {
@@ -6,7 +6,7 @@ class App {
   }
 
   init() {
-    router.init()
+    new Controller()
   }
 
   bindEvents() {

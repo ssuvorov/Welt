@@ -3,9 +3,11 @@
         <a href="/" class="button button--back">Back to list</a>
     </div>
     <div>
-        {{#user}}
-            {{{username}}} &mdash; {{{name}}}
-        {{/user}}
+        {{#if user}}
+            {{#user}}
+                {{{username}}} &mdash; {{{name}}}
+            {{/user}}
+        {{/if}}
     </div>
     <ul class="news__list">
         {{#news}}
@@ -15,4 +17,7 @@
             </li>
         {{/news}}
     </ul>
+    {{^if news}}
+        {{{spinner}}}
+    {{/if}}
 </article>

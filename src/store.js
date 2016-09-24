@@ -14,6 +14,10 @@ class Store {
   insert(key, items) {
     this.data[key] = items
   }
+  
+  remove(key) {
+    this.data[key] = []
+  }
 }
 
 export default Store

@@ -10,4 +10,7 @@
             </li>
         {{/users}}
     </ul>
+    {{^if users}}
+        {{{spinner}}}
+    {{/if}}
 </article>

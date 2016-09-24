@@ -3,18 +3,16 @@ import page from 'page'
 class Router {
   constructor(options = {}) {
     this.options = options
-
-    this.init()
   }
 
   init() {
     page.base('/')
 
-    for (let route in this.options) {
+    Object.keys(this.options).forEach(route => {
       const fn = this.options[route]
 
       page(route, fn)
-    }
+    })
 
     page()
   }

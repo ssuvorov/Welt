@@ -8,6 +8,9 @@ module.exports = {
     'webpack/hot/only-dev-server',
     './src/index'
   ],
+  resolve: {
+    root: path.resolve(__dirname, './src')
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',

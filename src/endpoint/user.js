@@ -14,10 +14,6 @@ class User extends Endpoint {
         return Promise.resolve(json)
       })
   }
-
-  formatByModel(Model) {
-
-  }
 }
 
 export default User

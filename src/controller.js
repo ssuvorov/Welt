@@ -1,11 +1,9 @@
-import Store from './store';
 import Router from './router'
 import Users from './view/users'
 import News from './view/news'
 
 class Controller {
   constructor() {
-    this.store = new Store()
     this.active = {}
 
     this.router = new Router({
@@ -21,13 +19,11 @@ class Controller {
   setView(View, options) {
     if (!View) return
     
-    const { store } = this;
-
     if (this.active.destroy) {
       this.active.destroy()
     }
     
-    const view = new View(store, options)
+    const view = new View(options)
     
     this.active = view
   }

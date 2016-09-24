@@ -1,19 +1,21 @@
-import Endpoint from '../endpoint/user'
+import UserModel from '../model/user'
 import usersTemplate from '../templates/users.handlebars'
 import loaderTemplate from '../templates/loader.handlebars'
 
 class Users {
-  constructor(store, options = {}) {
+  constructor(options = {}) {
     this._element = document.body
-    this.store = store
-    this.endpoint = new Endpoint()
     this.template = usersTemplate
+    this.model = new UserModel()
 
     this.init()
   }
 
   init() {
-    this.fetch()
+    this.model.fetch().then(() => {
+      this.render()
+    })
+
     this.render()
     this.bindEvents()
   }
@@ -26,21 +28,9 @@ class Users {
 
   }
 
-  fetch() {
-    return this.endpoint.getUsers()
-      .then((users) => {
-        this.store.insert('users', users)
-        this.store.remove('news')
-        this.render()
-      })
-      .catch((error) => {
-        alert('Unable to get data. Something goes wrong...')
-      })
-  }
-
   render() {
     this._element.innerHTML = this.template({
-      users: this.store.get('users'),
+      users: this.model.getAll(),
       spinner: loaderTemplate
     })
   }

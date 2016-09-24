@@ -1,20 +1,26 @@
-import Endpoint from '../endpoint/news'
+import NewsModel from '../model/news'
+import UserModel from '../model/user'
 import newsTemplate from '../templates/news.handlebars'
 import loaderTemplate from '../templates/loader.handlebars'
 
 class Users {
-  constructor(store, options = {}) {
+  constructor(options = {}) {
     this._element = document.body
     this.userId = parseInt(options.params.userid, 10)
-    this.store = store
-    this.endpoint = new Endpoint()
     this.template = newsTemplate
-
+    this.newsModel = new NewsModel()
+    this.userModel = new UserModel()
+    
     this.init()
   }
 
   init() {
-    this.fetch()
+    this.userModel.fetch().then(() => {
+      this.newsModel.fetch(this.userId).then(() => {
+        this.render()
+      })
+    })
+
     this.render()
     this.bindEvents()
   }
@@ -27,28 +33,13 @@ class Users {
   
   }
 
-
-  fetch() {
-    return this.endpoint.getNews(this.userId)
-      .then((news) => {
-        this.store.insert('news', news)
-        this.render()
-      })
-      .catch((error) => {
-        alert('Unable to get data. Something goes wrong...')
-      })
-  }
-
   render() {
-      const { userId } = this
-      const users = this.store.get('users')
-      const activeUser = users && users.filter(item => {
-        return item.id === userId
-      })
+      const { userId, userModel } = this
+      const activeUser = userModel.getById(userId)
 
       this._element.innerHTML = this.template({
         user: activeUser,
-        news: this.store.get('news'),
+        news: this.newsModel.getAll(),
         spinner: loaderTemplate
       })
   }

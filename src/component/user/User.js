@@ -11,7 +11,11 @@ const createUsersComponent = ({
   
       this.template = usersTemplate
       this.model = new UserModel()
-      this.items = []
+      this.data = {
+        items: [],
+        error: '',
+        spinner: loaderTemplate
+      }
   
       this.init()
     }
@@ -19,8 +23,12 @@ const createUsersComponent = ({
     init() {
       this.model.getAll()
         .then((items) => {
-          this.items = items
+          this.data.items = items
           
+          this.render()
+        })
+        .catch(error => {
+          this.data.error = error
           this.render()
         })
   
@@ -37,15 +45,12 @@ const createUsersComponent = ({
     }
   
     render() {
-      this.element.innerHTML = this.template({
-        users: this.items,
-        spinner: loaderTemplate
-      })
+      this.element.innerHTML = this.template(this.data)
     }
   
     destroy() {
       this.unbindEvents()
-      this.element.innerHTML = ''
+      this.unrender()
     }
   }
 }

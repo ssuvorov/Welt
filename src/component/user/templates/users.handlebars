@@ -1,16 +1,21 @@
 <article class="users">
     <h1>Users</h1>
     <ul class="users__list">
-        {{#users}}
+        {{#items}}
             <li class="users__item">
                 <a id="{{id}}" class="users__item__link" href="/news/userid/{{id}}">
                     <span class="users__item__id">id: {{id}}</span>
                     {{username}} &mdash; {{name}}
                 </a>
             </li>
-        {{/users}}
+        {{/items}}
     </ul>
-    {{^if users}}
-        {{{spinner}}}
+    {{#error}}
+        <div class="error">{{{message}}}</div>
+    {{/error}}
+    {{^if items}}
+        {{^if error}}
+            {{{spinner}}}
+        {{/if}}
     {{/if}}
 </article>

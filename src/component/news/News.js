@@ -17,8 +17,12 @@ const createNewsComponent = ({
       this.template = newsTemplate
       this.newsModel = new NewsModel()
       this.userModel = new UserModel()
-      this.user = {}
-      this.items = []
+      this.data = {
+        user: {},
+        items: [],
+        error: '',
+        spinner: loaderTemplate
+      }
   
       this.init()
     }
@@ -26,13 +30,20 @@ const createNewsComponent = ({
     init() {
       this.userModel.getById(this.userId)
         .then(user => {
-          this.user = user
+          this.data.user = user
           this.newsModel.getAll(this.userId)
             .then((items) => {
-              this.items = items
-  
+              this.data.items = items
               this.render()
             })
+            .catch(error => {
+              this.data.error = error
+              this.render()
+            })
+        })
+        .catch(error => {
+          this.data.error = error
+          this.render()
         })
   
       this.render()
@@ -48,18 +59,12 @@ const createNewsComponent = ({
     }
   
     render() {
-        const { userId } = this
-  
-        this.element.innerHTML = this.template({
-          user: this.user,
-          news: this.items,
-          spinner: loaderTemplate
-        })
+        this.element.innerHTML = this.template(this.data)
     }
-  
+    
     destroy() {
       this.unbindEvents()
-      this.element.innerHTML = ''
+      this.unrender()
     }
   }
 }

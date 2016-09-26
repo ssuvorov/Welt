@@ -10,14 +10,19 @@
         {{/if}}
     </div>
     <ul class="news__list">
-        {{#news}}
+        {{#items}}
             <li class="news__item">
                 <h3>{{{title}}}</h3>
                 <p>{{{body}}}</p>
             </li>
-        {{/news}}
+        {{/items}}
     </ul>
-    {{^if news}}
-        {{{spinner}}}
+    {{#error}}
+        <div class="error">{{{message}}}</div>
+    {{/error}}
+    {{^if items}}
+        {{^if error}}
+            {{{spinner}}}
+        {{/if}}
     {{/if}}
 </article>

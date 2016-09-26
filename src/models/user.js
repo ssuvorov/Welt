@@ -13,20 +13,18 @@ class User {
   getById(id) {
     const query = { id: id }
     
-    return new Promise((resolve, reject) => {
-      this._getUsers(query).then(item => {
-        resolve(item[0])
+    return this._getUsers(query)
+      .then(item => {
+        return item[0]
       })
-    })
   }
   
   getAll() {
-    return new Promise((resolve, reject) => {
-      this._getUsers().then(users => {
+    return this._getUsers()
+      .then(users => {
         this.items = users
-        resolve(this.items)
+        return this.items
       })
-    })
   }
 }
 

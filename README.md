@@ -1,4 +1,4 @@
-Show News on Vanilla JS
+Show News on Vanilla JS [PoC]
 ===================================
 
 ### Usage
